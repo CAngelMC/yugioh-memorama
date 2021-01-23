@@ -1,0 +1,22 @@
+.boardGame {
+  display: grid;
+  grid-template-columns: 16% 16% 16% 16% 16% 16%;
+  grid-template-rows: 33% 33% 33%;
+}
+
+.card {
+    margin: 5px;
+    color: white;
+    // height: 170px;
+    // width: 165px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline:none;   
+}
+
+.card img {
+    width: 100px;
+}
