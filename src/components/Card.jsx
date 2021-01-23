@@ -12,11 +12,15 @@ const Card = () => {
   };
 
   return (
-    <button type='button' className='card' onClick={handleClick}>
+    <button
+      type='button'
+      className={`card${flip ? ' flipped' : ''}`}
+      onClick={handleClick}
+    >
       {flip ? (
-        <img src={blankCard} alt='card' />
+        <img className='front' src={blankCard} alt='card' />
       ) : (
-        <img src={reverseCard} alt='card' />
+        <img className='back' src={reverseCard} alt='card' />
       )}
     </button>
   );
