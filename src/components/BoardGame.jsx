@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Card from './Card';
 import '../assets/styles/BoardGame.scss';
 
@@ -24,11 +25,32 @@ const queryCards = [
   { id: '18', value: '9', status: false },
 ];
 
+// const fetchCards = async () => {
+//   const result = await axios(
+//     'https://db.ygoprodeck.com/api/v7/randomcard.php',
+//   );
+//   console.log('result :>> ', result);
+// };
+
 const BoardGame = () => {
   const [firstCard, setFirstCard] = useState('');
   const [secondCard, setSecondCard] = useState('');
   const [cards, setCards] = useState(queryCards);
   const [block, setBlock] = useState(false);
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      try {
+        const result = await axios(
+          'https://db.ygoprodeck.com/api/v7/randomcard.php',
+        );
+        console.log('result :>> ', result);
+      } catch {
+        console.log(error);
+      }
+    };
+    fetchCards();
+  });
 
   const handleMatch = ({ id, value }) => {
     const newCards = cards.map((card) => {
@@ -45,6 +67,15 @@ const BoardGame = () => {
       setSecondCard(value);
       if (firstCard === value) {
         console.log('Its a match!');
+        let flag = true;
+        newCards.forEach((card) => {
+          if (card.status === false) {
+            flag = false;
+          }
+        });
+        if (flag) {
+          alert('you WON!');
+        }
         setFirstCard('');
         setSecondCard('');
       } else {
@@ -65,7 +96,7 @@ const BoardGame = () => {
           setFirstCard('');
           setSecondCard('');
           setBlock(false);
-        }, 2000);
+        }, 1750);
       }
     } else {
       setFirstCard('');
