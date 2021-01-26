@@ -1,28 +1,35 @@
-import React, { useState } from "react";
-import reverseCard from "../assets/static/card.png";
-import blankCard from "../assets/static/blank.jpg";
-import "../assets/styles/BoardGame.scss";
+import React from 'react';
+import reverseCard from '../assets/static/card.png';
+import blankCard from '../assets/static/blank.jpg';
+import '../assets/styles/BoardGame.scss';
 
 const Card = (props) => {
-  const [flip, setFlip] = useState(false);
+  const { card, block } = props;
 
   const handleClick = (e) => {
-    if (!props.card.status) {
-      setFlip(!flip);
-      props.handleMatch(props.card);
+    if (!card.status) {
+      // setFlip(!flip);
+      props.handleMatch(card);
     }
   };
 
   return (
     <button
-      type="button"
-      className={`card${flip ? " flipped" : ""}`}
+      type='button'
+      className={`card${card.status ? ' flipped' : ''}`}
       onClick={handleClick}
+      disabled={block}
     >
-      {flip ? (
-        <img className="front" src={blankCard} alt="card" />
+      {card.status ? (
+        <>
+          <img className='front' src={blankCard} alt='card' />
+          <div>{card.value}</div>
+        </>
       ) : (
-        <img className="back" src={reverseCard} alt="card" />
+        <>
+          <img className='back' src={reverseCard} alt='card' />
+          <div>{card.value}</div>
+        </>
       )}
     </button>
   );
