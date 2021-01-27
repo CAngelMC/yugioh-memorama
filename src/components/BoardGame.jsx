@@ -63,7 +63,7 @@ const BoardGame = () => {
     if (cards.length < 9) {
       let deck = fetchCards();
       // deck.map((card) => {
-      //   const newCard 
+      //   const newCard
       // })
       deck = deck.sort(() => Math.random() - 0.5);
       console.log('deck :>> ', deck);
