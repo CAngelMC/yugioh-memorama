@@ -4,7 +4,7 @@ import axios from 'axios';
 import Card from './Card';
 import '../assets/styles/BoardGame.scss';
 
-const queryCards = [
+const defaultCards = [
   { id: '1', value: '1', status: false },
   { id: '2', value: '2', status: false },
   { id: '3', value: '3', status: false },
@@ -35,22 +35,41 @@ const queryCards = [
 const BoardGame = () => {
   const [firstCard, setFirstCard] = useState('');
   const [secondCard, setSecondCard] = useState('');
-  const [cards, setCards] = useState(queryCards);
+  const [cards, setCards] = useState(defaultCards);
   const [block, setBlock] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchCards = async () => {
-  //     try {
-  //       const result = await axios(
-  //         'https://db.ygoprodeck.com/api/v7/randomcard.php',
-  //       );
-  //       console.log('result :>> ', result);
-  //     } catch {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchCards();
-  // });
+  useEffect(() => {
+    const fetchCards = async () => {
+      const queryCards = [];
+      for (let i = 0; i < 9; i = +1) {
+        try {
+          // El motivo de porque las consultas están de
+          // forma ineficiente es porque queremos que
+          // las consultas sucedan lentamente, para evitar
+          // problemas con la api...
+          // eslint-disable-next-line no-await-in-loop
+          const result = await axios(
+            'https://db.ygoprodeck.com/api/v7/randomcard.php',
+          );
+          console.log('result :>> ', result);
+          queryCards.push(result);
+          queryCards.push(result);
+        } catch {
+          console.log(error);
+        }
+      }
+      return queryCards;
+    };
+    if (cards.length < 9) {
+      let deck = fetchCards();
+      // deck.map((card) => {
+      //   const newCard 
+      // })
+      deck = deck.sort(() => Math.random() - 0.5);
+      console.log('deck :>> ', deck);
+      // setCards(deck);
+    }
+  }, []);
 
   const handleMatch = ({ id, value }) => {
     const newCards = cards.map((card) => {
