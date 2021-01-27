@@ -38,19 +38,19 @@ const BoardGame = () => {
   const [cards, setCards] = useState(queryCards);
   const [block, setBlock] = useState(false);
 
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const result = await axios(
-          'https://db.ygoprodeck.com/api/v7/randomcard.php',
-        );
-        console.log('result :>> ', result);
-      } catch {
-        console.log(error);
-      }
-    };
-    fetchCards();
-  });
+  // useEffect(() => {
+  //   const fetchCards = async () => {
+  //     try {
+  //       const result = await axios(
+  //         'https://db.ygoprodeck.com/api/v7/randomcard.php',
+  //       );
+  //       console.log('result :>> ', result);
+  //     } catch {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchCards();
+  // });
 
   const handleMatch = ({ id, value }) => {
     const newCards = cards.map((card) => {
