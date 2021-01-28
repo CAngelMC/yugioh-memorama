@@ -41,7 +41,8 @@ const BoardGame = () => {
   useEffect(() => {
     const fetchCards = async () => {
       const queryCards = [];
-      for (let i = 0; i < 9; i = +1) {
+      for (let i = 0; i < 9; i++) {
+        console.log('here searching for some awesome cards!', i);
         try {
           // El motivo de porque las consultas están de
           // forma ineficiente es porque queremos que
@@ -52,23 +53,35 @@ const BoardGame = () => {
             'https://db.ygoprodeck.com/api/v7/randomcard.php',
           );
           console.log('result :>> ', result);
-          queryCards.push(result);
-          queryCards.push(result);
-        } catch {
+          const cardObj = {
+            id: i,
+            value: i,
+            status: false,
+            img: result.data.card_images[0].image_url,
+          };
+          const cardObjCopy = {
+            id: i + 9,
+            value: i,
+            status: false,
+            img: result.data.card_images[0].image_url,
+          };
+          queryCards.push(cardObj);
+          queryCards.push(cardObjCopy);
+        } catch (error) {
           console.log(error);
         }
       }
+      setCards(queryCards);
       return queryCards;
     };
-    if (cards.length < 9) {
-      let deck = fetchCards();
-      // deck.map((card) => {
-      //   const newCard
-      // })
-      deck = deck.sort(() => Math.random() - 0.5);
-      console.log('deck :>> ', deck);
-      // setCards(deck);
-    }
+    // if (cards.length < 9) {
+    fetchCards();
+    // deck.map((card) => {
+    //   const newCard
+    // })
+    // deck = deck.sort(() => Math.random() - 0.5);
+    // console.log('deck :>> ', deck);
+    // }
   }, []);
 
   const handleMatch = ({ id, value }) => {

@@ -22,7 +22,11 @@ const Card = (props) => {
     >
       {card.status ? (
         <>
-          <img className='front' src={blankCard} alt='card' />
+          <img
+            className='front'
+            src={card.img ? card.img : blankCard}
+            alt='card'
+          />
           <div>{card.value}</div>
         </>
       ) : (

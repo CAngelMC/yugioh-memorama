@@ -23,6 +23,10 @@
   cursor: pointer;
   overflow: hidden;
   outline: none;
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
   &.flipped {
     .front {
       transform: rotateY(180deg);
@@ -33,6 +37,7 @@
   }
   .front,
   .back {
+    display: block;
     transform-style: preserve-3d;
     transition: -webkit-transform ease 1000ms;
     transition: transform ease 1000ms;
@@ -42,7 +47,6 @@
     transform: rotateY(0deg);
   }
   .back {
-    // background: $new-white;
     transform: rotateY(-180deg);
   }
 }
