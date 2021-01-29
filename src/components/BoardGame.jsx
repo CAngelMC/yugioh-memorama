@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Buffer } from 'buffer';
 import Card from './Card';
 import '../assets/styles/BoardGame.scss';
 
@@ -52,18 +53,33 @@ const BoardGame = () => {
           const result = await axios(
             'https://db.ygoprodeck.com/api/v7/randomcard.php',
           );
+          // eslint-disable-next-line no-await-in-loop
+          const img = await axios
+            .get(result.data.card_images[0].image_url, {
+              responseType: 'arraybuffer',
+            })
+            .then((response) => {
+              const b64 = Buffer.from(response.data, 'binary').toString(
+                'base64',
+              );
+              return `data:image/png;base64,${b64}`;
+            })
+            .catch((error) => {
+              throw new Error(error);
+            });
+          console.log('img :>> ', img);
           console.log('result :>> ', result);
           const cardObj = {
             id: i,
             value: i,
             status: false,
-            img: result.data.card_images[0].image_url,
+            img,
           };
           const cardObjCopy = {
             id: i + 9,
             value: i,
             status: false,
-            img: result.data.card_images[0].image_url,
+            img,
           };
           queryCards.push(cardObj);
           queryCards.push(cardObjCopy);

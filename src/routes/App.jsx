@@ -8,8 +8,8 @@ const App = () => (
   <BrowserRouter>
     <Layout>
       <Switch>
-        <Route exact path='/' component={Start} />
-        <Route exact path='/game' component={BoardGame} />
+        <Route exact path='/game' component={Start} />
+        <Route exact path='/' component={BoardGame} />
       </Switch>
     </Layout>
   </BrowserRouter>

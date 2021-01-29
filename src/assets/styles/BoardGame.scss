@@ -1,15 +1,10 @@
 .boardGame {
-  display: grid;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
-  max-width: 900px;
-  // grid-template-columns: 16% 16% 16% 16% 16% 16%;
-  // grid-template-columns: repeat(auto-fill, 150px);
+  max-width: 700px;
   margin: 0 auto;
-
-  grid-template-columns: repeat(auto-fill, 9em);
-
-  // grid-gap: 20px;
-  // grid-template-rows: 33% 33% 33%;
 }
 
 .card {
@@ -53,4 +48,30 @@
 
 .card img {
   width: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 70px;
+    // height: 95px;
+  }
+
+  .card img {
+    width: 65px;
+  }
+}
+
+@media only screen and (max-height: 600px) {
+  .card {
+    width: 67px;
+    // height: 95px;
+  }
+
+  .card img {
+    width: 60px;
+  }
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
 }
