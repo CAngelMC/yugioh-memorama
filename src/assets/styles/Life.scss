@@ -1,0 +1,22 @@
+.life {
+  display: flex;
+  justify-content: center;
+}
+
+.life div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 125px;
+  height: 60px;
+  background: #2167e3;
+  border: 3px solid #99a7b7;
+  border-radius: 11px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.life div p {
+  font-style: italic;
+  color: #efef3e;
+  font-size: 35px;
+}
