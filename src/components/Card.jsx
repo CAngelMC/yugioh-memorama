@@ -1,7 +1,7 @@
-import React from "react";
-import reverseCard from "../assets/static/card.png";
-import blankCard from "../assets/static/blank.jpg";
-import "../assets/styles/BoardGame.scss";
+import React from 'react';
+import reverseCard from '../assets/static/card.png';
+import blankCard from '../assets/static/blank.jpg';
+import '../assets/styles/BoardGame.scss';
 
 const Card = (props) => {
   const { card, block } = props;
@@ -14,22 +14,22 @@ const Card = (props) => {
 
   return (
     <button
-      type="button"
-      className={`card${card.status ? " flipped" : ""}`}
+      type='button'
+      className={`card${card.status ? ' flipped' : ''}`}
       onClick={handleClick}
       disabled={block}
     >
       {card.status ? (
         <>
           <img
-            className="front"
+            className='front'
             src={card.img ? card.img : blankCard}
-            alt="card"
+            alt='card'
           />
         </>
       ) : (
         <>
-          <img className="back" src={reverseCard} alt="card" />
+          <img className='back' src={reverseCard} alt='card' />
         </>
       )}
     </button>
