@@ -1,11 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import useSound from "use-sound";
 import { Buffer } from "buffer";
 import Card from "./Card";
 import "../assets/styles/BoardGame.scss";
 import Loader from "./Loader";
 import Life from "./Life";
+import sound from "../assets/static/life.mp3";
 
 const defaultCards = [
   { id: "1", value: "1", status: false },
@@ -91,6 +93,8 @@ const BoardGame = () => {
     fetchCards();
   }, []);
 
+  const [playLife] = useSound(sound, { volume: 0.75 });
+
   const handleMatch = ({ id, value }) => {
     const newCards = cards.map((card) => {
       const newCard = {
@@ -119,8 +123,13 @@ const BoardGame = () => {
         setSecondCard("");
       } else {
         setBlock(true);
-        console.log(life)
-        setLife(life-200);
+        playLife();
+        // setLife(life - 200);
+        for (let i = 0; i <= 200; i++) {
+          setTimeout(() => {
+            setLife(life - i);
+          }, 10);
+        }
         setTimeout(() => {
           const newCards = cards.map((card) => {
             if (card.value === firstCard || card.value === value) {
@@ -146,7 +155,7 @@ const BoardGame = () => {
 
   return (
     <div>
-        <Life life={life} />
+      <Life life={life} />
       <div className="boardGame">
         {loading ? (
           <Loader />
