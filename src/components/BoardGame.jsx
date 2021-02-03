@@ -44,63 +44,63 @@ const BoardGame = () => {
   const openModal = () => setShow(true);
   const closeModal = () => setShow(false);
 
-  useEffect(() => {
-    const fetchCards = async () => {
-      setLoading(true);
-      const queryCards = [];
-      for (let i = 0; i < 9; i++) {
-        try {
-          // El motivo de porque las consultas están de
-          // forma ineficiente es porque queremos que
-          // las consultas sucedan lentamente, para evitar
-          // problemas con la api, ya que exigen
-          // que las imagenes sean consultadas una por una...
-          // eslint-disable-next-line no-await-in-loop
-          const result = await axios(
-            'https://db.ygoprodeck.com/api/v7/randomcard.php',
-          );
-          // eslint-disable-next-line no-await-in-loop
-          const img = await axios
-            .get(result.data.card_images[0].image_url, {
-              responseType: 'arraybuffer',
-            })
-            .then((response) => {
-              const b64 = Buffer.from(response.data, 'binary').toString(
-                'base64',
-              );
-              return `data:image/png;base64,${b64}`;
-            })
-            .catch((error) => {
-              throw new Error(error);
-            });
-          const cardObj = {
-            id: i,
-            value: i,
-            status: false,
-            img,
-          };
-          const cardObjCopy = {
-            id: i + 9,
-            value: i,
-            status: false,
-            img,
-          };
-          queryCards.push(cardObj);
-          queryCards.push(cardObjCopy);
-        } catch (error) {
-          console.log(error);
-        }
+  const fetchCards = async () => {
+    setLoading(true);
+    const queryCards = [];
+    for (let i = 0; i < 9; i++) {
+      try {
+        // El motivo de porque las consultas están de
+        // forma ineficiente es porque queremos que
+        // las consultas sucedan lentamente, para evitar
+        // problemas con la api, ya que exigen
+        // que las imagenes sean consultadas una por una...
+        // eslint-disable-next-line no-await-in-loop
+        const result = await axios(
+          'https://db.ygoprodeck.com/api/v7/randomcard.php',
+        );
+        // eslint-disable-next-line no-await-in-loop
+        const img = await axios
+          .get(result.data.card_images[0].image_url, {
+            responseType: 'arraybuffer',
+          })
+          .then((response) => {
+            const b64 = Buffer.from(response.data, 'binary').toString('base64');
+            return `data:image/png;base64,${b64}`;
+          })
+          .catch((error) => {
+            throw new Error(error);
+          });
+        const cardObj = {
+          id: i,
+          value: i,
+          status: false,
+          img,
+        };
+        const cardObjCopy = {
+          id: i + 9,
+          value: i,
+          status: false,
+          img,
+        };
+        queryCards.push(cardObj);
+        queryCards.push(cardObjCopy);
+      } catch (error) {
+        console.log(error);
       }
-      queryCards.sort(() => Math.random() - 0.5);
-      setCards(queryCards);
-      setLoading(false);
-      return queryCards;
-    };
-    fetchCards();
-  }, []);
+    }
+    queryCards.sort(() => Math.random() - 0.5);
+    setCards(queryCards);
+    setLoading(false);
+    return queryCards;
+  };
 
   const [playLife] = useSound(sound, { volume: 0.75 });
 
+  useEffect(() => {
+    // fetchCards();
+  }, []);
+
+  // Lógica del juego
   const handleMatch = ({ id, value }) => {
     const newCards = cards.map((card) => {
       const newCard = {
@@ -115,7 +115,6 @@ const BoardGame = () => {
     } else if (secondCard === '') {
       setSecondCard(value);
       if (firstCard === value) {
-        console.log('Its a match!');
         let flag = true;
         newCards.forEach((card) => {
           if (card.status === false) {
@@ -123,7 +122,7 @@ const BoardGame = () => {
           }
         });
         if (flag) {
-          alert('you WON!');
+          openModal();
         }
         setFirstCard('');
         setSecondCard('');
@@ -151,7 +150,7 @@ const BoardGame = () => {
           setFirstCard('');
           setSecondCard('');
           setBlock(false);
-        }, 1750);
+        }, 1450);
       }
     } else {
       setFirstCard('');
@@ -159,19 +158,25 @@ const BoardGame = () => {
     }
   };
 
+  const restart = () => {
+    fetchCards();
+    setLife(4000);
+    closeModal();
+  };
+
   return (
     <div>
+      <Life life={life} />
       {loading ? (
         <Loader />
       ) : (
         <>
-          <Life life={life} />
           {!show && (
             <button type='button' onClick={openModal}>
               Show modal
             </button>
           )}
-          <Win closeModal={closeModal} show={show} />
+          <Win closeModal={closeModal} restart={restart} show={show} />
           <div className='boardGame'>
             {cards.map((card, i) => {
               return (

@@ -10,7 +10,6 @@
 .card {
   margin: 5px;
   color: white;
-  // height: 170px;
   width: 115px;
   background-color: Transparent;
   background-repeat: no-repeat;
@@ -18,13 +17,10 @@
   cursor: pointer;
   overflow: hidden;
   outline: none;
-  position: relative;
   transform-style: preserve-3d;
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
   &.flipped {
     .front {
-      transform: rotateY(180deg);
+      transform: rotateY(360deg);
     }
     .back {
       transform: rotateY(0deg);
@@ -32,17 +28,9 @@
   }
   .front,
   .back {
-    display: block;
     transform-style: preserve-3d;
     transition: -webkit-transform ease 1000ms;
     transition: transform ease 1000ms;
-  }
-  .front {
-    z-index: 2;
-    transform: rotateY(0deg);
-  }
-  .back {
-    transform: rotateY(-180deg);
   }
 }
 
@@ -53,7 +41,6 @@
 @media only screen and (max-width: 600px) {
   .card {
     width: 70px;
-    // height: 95px;
   }
 
   .card img {
@@ -64,7 +51,6 @@
 @media only screen and (max-height: 600px) {
   .card {
     width: 67px;
-    // height: 95px;
   }
 
   .card img {

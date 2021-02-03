@@ -7,7 +7,7 @@
   background: rgba(0, 0, 0, 0.6);
   display: block;
   color: black;
-  z-index: 1;
+  z-index: 99;
 }
 
 .modal_main {
@@ -28,4 +28,29 @@
 
 .modal_main h2 {
   font-size: x-large;
+}
+
+.modal_footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal_footer_button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid black;
+
+  /* border: white; */
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+  font-family: 'Mulish', sans-serif;
+  height: 35px;
+  margin-top: 3px;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 0 10px;
+  width: 150px;
+  align-self: center;
 }

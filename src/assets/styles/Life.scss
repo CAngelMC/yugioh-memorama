@@ -1,6 +1,23 @@
-.life {
+.menu {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.menu_button {
+  background: #001237;
+  font-size: 25px;
+}
+
+.life {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #001237;
+  border: 2px solid #0050af;
+  border-radius: 5px;
+  height: 90px;
+  width: 75%;
 }
 
 .life div {
@@ -19,4 +36,15 @@
   font-style: italic;
   color: #efef3e;
   font-size: 35px;
+}
+
+@media only screen and (max-width: 600px) {
+  .life div {
+    width: 75px;
+    height: 40px;
+  }
+
+  .life div p {
+    font-size: 30px;
+  }
 }
