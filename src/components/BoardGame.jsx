@@ -1,43 +1,45 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import useSound from 'use-sound';
-import { Buffer } from 'buffer';
-import Card from './Card';
-import '../assets/styles/BoardGame.scss';
-import Loader from './Loader';
-import Life from './Life';
-import sound from '../assets/static/life.mp3';
-import Win from './Win';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import useSound from "use-sound";
+import { Buffer } from "buffer";
+import Card from "./Card";
+import "../assets/styles/BoardGame.scss";
+import Loader from "./Loader";
+import Menu from "./Menu";
+import sound from "../assets/static/life.mp3";
+import End from "./End";
 
 const defaultCards = [
-  { id: '1', value: '1', status: false },
-  { id: '2', value: '2', status: false },
-  { id: '3', value: '3', status: false },
-  { id: '4', value: '4', status: false },
-  { id: '5', value: '5', status: false },
-  { id: '6', value: '6', status: false },
-  { id: '7', value: '7', status: false },
-  { id: '8', value: '8', status: false },
-  { id: '9', value: '9', status: false },
-  { id: '10', value: '1', status: false },
-  { id: '11', value: '2', status: false },
-  { id: '12', value: '3', status: false },
-  { id: '13', value: '4', status: false },
-  { id: '14', value: '5', status: false },
-  { id: '15', value: '6', status: false },
-  { id: '16', value: '7', status: false },
-  { id: '17', value: '8', status: false },
-  { id: '18', value: '9', status: false },
+  { id: "1", value: "1", status: false },
+  { id: "2", value: "2", status: false },
+  { id: "3", value: "3", status: false },
+  { id: "4", value: "4", status: false },
+  { id: "5", value: "5", status: false },
+  { id: "6", value: "6", status: false },
+  { id: "7", value: "7", status: false },
+  { id: "8", value: "8", status: false },
+  { id: "9", value: "9", status: false },
+  { id: "10", value: "1", status: false },
+  { id: "11", value: "2", status: false },
+  { id: "12", value: "3", status: false },
+  { id: "13", value: "4", status: false },
+  { id: "14", value: "5", status: false },
+  { id: "15", value: "6", status: false },
+  { id: "16", value: "7", status: false },
+  { id: "17", value: "8", status: false },
+  { id: "18", value: "9", status: false },
 ];
 
 const BoardGame = () => {
-  const [firstCard, setFirstCard] = useState('');
-  const [secondCard, setSecondCard] = useState('');
+  const [firstCard, setFirstCard] = useState("");
+  const [secondCard, setSecondCard] = useState("");
   const [cards, setCards] = useState(defaultCards);
   const [life, setLife] = useState(4000);
   const [block, setBlock] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("WIN!");
+  const [difficult, setDificult] = useState(1000);
 
   const [show, setShow] = useState(false);
 
@@ -56,15 +58,15 @@ const BoardGame = () => {
         // que las imagenes sean consultadas una por una...
         // eslint-disable-next-line no-await-in-loop
         const result = await axios(
-          'https://db.ygoprodeck.com/api/v7/randomcard.php',
+          "https://db.ygoprodeck.com/api/v7/randomcard.php"
         );
         // eslint-disable-next-line no-await-in-loop
         const img = await axios
           .get(result.data.card_images[0].image_url, {
-            responseType: 'arraybuffer',
+            responseType: "arraybuffer",
           })
           .then((response) => {
-            const b64 = Buffer.from(response.data, 'binary').toString('base64');
+            const b64 = Buffer.from(response.data, "binary").toString("base64");
             return `data:image/png;base64,${b64}`;
           })
           .catch((error) => {
@@ -110,9 +112,9 @@ const BoardGame = () => {
       return newCard;
     });
     setCards(newCards);
-    if (firstCard === '') {
+    if (firstCard === "") {
       setFirstCard(value);
-    } else if (secondCard === '') {
+    } else if (secondCard === "") {
       setSecondCard(value);
       if (firstCard === value) {
         let flag = true;
@@ -122,18 +124,22 @@ const BoardGame = () => {
           }
         });
         if (flag) {
+          setMessage("WIN!");
           openModal();
         }
-        setFirstCard('');
-        setSecondCard('');
+        setFirstCard("");
+        setSecondCard("");
       } else {
         setBlock(true);
         playLife();
-        // setLife(life - 200);
-        for (let i = 0; i <= 200; i++) {
+        for (let i = 0; i <= difficult; i++) {
           setTimeout(() => {
             setLife(life - i);
           }, i + 10);
+        }
+        if(life-difficult === 0) {
+          setMessage('LOSE!')
+          openModal();
         }
         setTimeout(() => {
           const newCards = cards.map((card) => {
@@ -147,14 +153,14 @@ const BoardGame = () => {
             return card;
           });
           setCards(newCards);
-          setFirstCard('');
-          setSecondCard('');
+          setFirstCard("");
+          setSecondCard("");
           setBlock(false);
         }, 1450);
       }
     } else {
-      setFirstCard('');
-      setSecondCard('');
+      setFirstCard("");
+      setSecondCard("");
     }
   };
 
@@ -166,18 +172,24 @@ const BoardGame = () => {
 
   return (
     <div>
-      <Life life={life} />
+      <Menu life={life} restart={restart} />
       {loading ? (
         <Loader />
       ) : (
         <>
           {!show && (
-            <button type='button' onClick={openModal}>
+            <button type="button" onClick={openModal}>
               Show modal
             </button>
           )}
-          <Win closeModal={closeModal} restart={restart} show={show} />
-          <div className='boardGame'>
+          <End
+            closeModal={closeModal}
+            restart={restart}
+            show={show}
+            life={life}
+            message={message}
+          />
+          <div className="boardGame">
             {cards.map((card, i) => {
               return (
                 // <Card key={i} className='card' />

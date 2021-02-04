@@ -2,11 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
-.menu_button {
+.menu_input {
   background: #001237;
-  font-size: 25px;
+  font-size: 20px;
+  color: white;
+  border: 2px solid #0050af;
+  border-radius: 5px;
 }
 
 .life {
@@ -16,16 +20,16 @@
   background-color: #001237;
   border: 2px solid #0050af;
   border-radius: 5px;
-  height: 90px;
-  width: 75%;
+  height: 60px;
+  width: 80%;
 }
 
 .life div {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 125px;
-  height: 60px;
+  width: 60px;
+  height: 30px;
   background: #2167e3;
   border: 3px solid #99a7b7;
   border-radius: 11px;
@@ -35,16 +39,24 @@
 .life div p {
   font-style: italic;
   color: #efef3e;
-  font-size: 35px;
+  font-size: 23px;
 }
 
 @media only screen and (max-width: 600px) {
-  .life div {
-    width: 75px;
+  .life {
     height: 40px;
   }
 
+  .life div {
+    width: 50px;
+    height: 25px;
+  }
+
   .life div p {
-    font-size: 30px;
+    font-size: 16px;
+  }
+
+  .menu_input {
+    font-size: 14px;
   }
 }

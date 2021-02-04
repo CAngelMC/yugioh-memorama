@@ -12,18 +12,22 @@
 
 .modal_main {
   position: fixed;
-  background: white;
   width: 30%;
   height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 3px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.9), 0 10px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   display: flex;
   flex-direction: column;
   text-align: center;
+  background: #001237;
+  font-size: 20px;
+  color: white;
+  border: 2px solid #0050af;
+  border-radius: 5px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .modal_main h2 {
@@ -36,21 +40,14 @@
 }
 
 .modal_footer_button {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid black;
+  background: #001237;
+  font-size: 20px;
+  color: white;
+  border: 2px solid #0050af;
+  border-radius: 5px;
+}
 
-  /* border: white; */
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 17px;
-  font-weight: bold;
-  color: black;
-  font-family: 'Mulish', sans-serif;
-  height: 35px;
-  margin-top: 3px;
-  margin-bottom: 10px;
-  outline: none;
-  padding: 0 10px;
-  width: 150px;
-  align-self: center;
+.action {
+  // border: 2px solid #f6bf25;
+  color: #fdec08;
 }
