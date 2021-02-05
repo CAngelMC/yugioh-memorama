@@ -1,0 +1,24 @@
+.start {
+  background: #001237;
+  width: 25%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #0050af;
+  border-radius: 5px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.start a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+//   border: 2px solid #0050af;
+//   border-radius: 2px;
+  padding: 0px 10px;
+}
+
+.start a:hover {
+  color: yellow;
+}

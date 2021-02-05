@@ -1,11 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import "../assets/styles/Start.scss";
 
 const Start = () => (
   <>
-    <Link to='/game'>
-      <div>Play!</div>
-    </Link>
+    <div className="start">
+      <Link to="/game">
+        <div>Duel!</div>
+      </Link>
+    </div>
   </>
 );
 

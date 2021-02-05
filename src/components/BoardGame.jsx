@@ -4,11 +4,11 @@ import axios from "axios";
 import useSound from "use-sound";
 import { Buffer } from "buffer";
 import Card from "./Card";
-import "../assets/styles/BoardGame.scss";
 import Loader from "./Loader";
 import Menu from "./Menu";
 import sound from "../assets/static/life.mp3";
 import End from "./End";
+import "../assets/styles/BoardGame.scss";
 
 const defaultCards = [
   { id: "1", value: "1", status: false },
@@ -39,7 +39,7 @@ const BoardGame = () => {
   const [block, setBlock] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("WIN!");
-  const [difficult, setDificult] = useState(1000);
+  const [difficulty, setDifficulty] = useState(250);
 
   const [show, setShow] = useState(false);
 
@@ -96,10 +96,10 @@ const BoardGame = () => {
     return queryCards;
   };
 
-  const [playLife] = useSound(sound, { volume: 0.75 });
+  const [playLife] = useSound(sound, { volume: 1 });
 
   useEffect(() => {
-    // fetchCards();
+    fetchCards();
   }, []);
 
   // Lógica del juego
@@ -132,13 +132,13 @@ const BoardGame = () => {
       } else {
         setBlock(true);
         playLife();
-        for (let i = 0; i <= difficult; i++) {
+        for (let i = 0; i <= difficulty; i++) {
           setTimeout(() => {
             setLife(life - i);
           }, i + 10);
         }
-        if(life-difficult === 0) {
-          setMessage('LOSE!')
+        if (life - difficulty === 0) {
+          setMessage("LOSE!");
           openModal();
         }
         setTimeout(() => {
@@ -172,16 +172,16 @@ const BoardGame = () => {
 
   return (
     <div>
-      <Menu life={life} restart={restart} />
       {loading ? (
         <Loader />
       ) : (
         <>
-          {!show && (
-            <button type="button" onClick={openModal}>
-              Show modal
-            </button>
-          )}
+          <Menu
+            life={life}
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
+            restart={restart}
+          />
           <End
             closeModal={closeModal}
             restart={restart}
@@ -192,7 +192,6 @@ const BoardGame = () => {
           <div className="boardGame">
             {cards.map((card, i) => {
               return (
-                // <Card key={i} className='card' />
                 <Card
                   key={i}
                   card={card}
