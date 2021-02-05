@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
     "start-home": "webpack-dev-server --open --mode development --host 192.168.0.14",
-    "start": "webpack-dev-server --open --mode development --host 192.168.1.145"
+    "startOld": "webpack-dev-server --open --mode development --host 192.168.1.145",
+    "start": "webpack-dev-server --open --mode development"
   },
   "keywords": [
     "Memorama"
